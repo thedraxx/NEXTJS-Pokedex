@@ -1,31 +1,24 @@
-import { Button } from '@nextui-org/react'
-import { NextPage } from 'next'
 import React from 'react'
 import Layout from '../components/layouts/Layout';
 import { GetStaticProps } from 'next'
 import pokeAPI from '../api/pokeAPI';
 import { PokemonsListResponse, SmallPokemon } from '@/interfaces/pokemonsInterface';
+import PokemonCard from '@/components/pokemon/PokemonCard';
 
 interface Props {
   pokemons: SmallPokemon[]
 }
 
 const index = ({ pokemons }: Props) => {
-
   console.log(pokemons)
-
   return (
     <>
       <Layout title='Listado de Pokemons'>
-        <ul>
-          <li>#1 - nombre</li>
-        </ul>
+        <PokemonCard pokemons={pokemons} />
       </Layout>
     </>
   )
 }
-
-
 // You should use getStaticProps when:
 //- The data required to render the page is available at build time ahead of a user’s request.
 //- The data comes from a headless CMS.
@@ -36,15 +29,22 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const { data } = await pokeAPI.get<PokemonsListResponse>('/pokemon?limit=151')
 
-
+  const pokemons: SmallPokemon[] = data.results.map((pokemon, index) => {
+    const id = index + 1
+    const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+    return {
+      id,
+      name: pokemon.name,
+      img,
+      url: pokemon.url
+    }
+  })
 
   return {
     props: {
-      pokemons: data.results
+      pokemons: pokemons
     }
   }
 }
-
-
 
 export default index

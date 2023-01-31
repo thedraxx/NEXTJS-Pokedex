@@ -19,14 +19,10 @@ const Layout = ({ children, title }: LayoutProps) => {
 
             <Navbar />
             <main style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '1rem 2rem',
+                padding: '1rem 1rem'
             }}>
                 {children}
             </main>
-
         </>
     )
 }
