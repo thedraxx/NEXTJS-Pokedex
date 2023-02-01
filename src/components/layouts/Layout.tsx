@@ -1,8 +1,6 @@
 import Head from 'next/head'
-import React, { FC } from 'react'
+import React from 'react'
 import Navbar from '../ui/navbar/Navbar';
-import { useRouter } from 'next/router';
-
 interface LayoutProps {
     children: React.ReactNode,
     title?: string
