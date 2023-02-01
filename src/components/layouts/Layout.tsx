@@ -1,13 +1,17 @@
 import Head from 'next/head'
 import React, { FC } from 'react'
 import Navbar from '../ui/navbar/Navbar';
+import { useRouter } from 'next/router';
 
 interface LayoutProps {
     children: React.ReactNode,
     title?: string
 }
 
+const origin = (process.env.NODE_ENV === 'development') ? 'http://localhost:3000' : 'https://pokemon-app-psi.vercel.app'
+
 const Layout = ({ children, title }: LayoutProps) => {
+
     return (
         <>
             <Head>
@@ -15,6 +19,9 @@ const Layout = ({ children, title }: LayoutProps) => {
                 <meta name="app" content="Pokemon App" />
                 <meta name="descripcion" content={`Informacion sore el pokemon: ${title}`} />
                 <meta name="keywords" content={`${title}`} />
+                <meta property="og:title" content={`Informacion sobre...${title}`} />
+                <meta property="og:description" content={`Esta es la pagina sobre ${title}`} />
+                <meta property="og:image" content={origin} />
             </Head>
 
             <Navbar />

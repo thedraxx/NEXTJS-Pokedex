@@ -10,7 +10,6 @@ interface Props {
 }
 
 const index = ({ pokemons }: Props) => {
-  console.log(pokemons)
   return (
     <>
       <Layout title='Listado de Pokemons'>

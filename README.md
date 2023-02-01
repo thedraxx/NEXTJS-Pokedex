@@ -1,38 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center"> Hello Everyone 🪐👋</h1>
 
-## Getting Started
+## 🤖 About App:
+In This Web-App was made using React Framework NextJS + Typescript, you can see the next features:
+-  View the First 150 Pokemon.
+-  you can search more pokemons using URL, for example "/pokemon/152" or "/name/chikorita"
+-  you can save and delete favorites pokemon using LocalStorage
 
-First, run the development server:
+## 📷 Screenshots
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Home:
+![1](https://user-images.githubusercontent.com/55867157/210617796-07eb9d82-7363-4f35-b5cc-c512ed4e3d2e.png)
+
+## Pokemon Detail
+![2](https://user-images.githubusercontent.com/55867157/210617834-689af957-d392-47cd-8817-abae7c6a1240.png)
+
+## Favorites:
+![3](https://user-images.githubusercontent.com/55867157/210617873-97bac960-1a44-4060-ab3b-9635032fabf0.png)
+
+## 🎥 A little video of the WEB:
+https://user-images.githubusercontent.com/55867157/210617924-08887524-860e-46de-a82f-8bcceab7c97c.mp4
+
+<br> The app is made with the following technologies:</br>
+
+```
+## ⚛️ React
+```
+ React: 18.2.0
+```
+## ⚛️ Next JS:
+```
+next: 13.1.1
+```
+## ⚛️ Axios
+```
+Axios: 1.2.1
+```
+## ⚛️ canvas-confetti
+```
+canvas-confetti: 1.6.0
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to use: 
+```
+1.Clone this proyect in your folder: git clone https://github.com/thedraxx/CryptoApp.git
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+2. Install the dependencies: yarn i
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+if you want the developer mode:  yarn dev for developer mode
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+for production mode: yarn buid and post use yarn start. 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+## ✉️ Contact
 
-## Learn More
+gmail: cerrano.francisco22@gmail.com
 
-To learn more about Next.js, take a look at the following resources:
+## 🤔 Autor
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+👤 **Francisco Cerrano**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Twitter: [@thedraxxworld](https://twitter.com/ThedraxxWorld)
+- Github: [thedraxx](https://github.com/thedraxx)
+- LinkedIn: [Francisco Isaac Cerrano](https://www.linkedin.com/in/cerranofrancisco/)

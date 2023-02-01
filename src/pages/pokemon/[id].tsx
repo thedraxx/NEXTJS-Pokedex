@@ -1,27 +1,40 @@
-import React from 'react'
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from 'react'
 import Layout from '@/components/layouts/Layout'
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { pokeAPI } from '@/api';
 import { Pokemon } from '@/interfaces/pokemonFull';
 import { Grid, Card, Text, Button, Container, Image } from '@nextui-org/react';
 import { useRouter } from 'next/router';
+import { localFavorites } from '@/utilities';
+import ReactCanvasConfetti from 'react-canvas-confetti';
+import confetti from 'canvas-confetti';
+import getPokemonInfo from '@/utilities/getPokemonInfo';
 
 interface Props {
-    pokemon: any
+    pokemon: Pokemon
 }
 
 const pokemonPage = ({ pokemon }: Props) => {
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const router = useRouter();
+    const [isInFavorite, setIsInFavorite] = useState(localFavorites.existsInFavorites(pokemon.id))
 
-    const NavigateFavorites = (id: number) => {
-        router.push(`/favorites`)
+    const onToggleFavorite = () => {
+        localFavorites.toggleFavorite(pokemon.id);
+        setIsInFavorite(!isInFavorite);
+
+        if (!isInFavorite) {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6, x: 0.7 }
+            });
+
+        }
     }
 
-
     return (
-        <Layout title='Algun pokemon'>
+        <Layout title={pokemon.name}>
             <Grid.Container css={{ marginTop: "5px" }} gap={2}>
                 <Grid xs={12} md={6}>
                     <Card isHoverable css={{ padding: "20px" }}>
@@ -53,7 +66,7 @@ const pokemonPage = ({ pokemon }: Props) => {
                                 </Container>
                             </Card.Footer>
                         </Card.Body>
-                        <Button color="gradient" ghost>Add Favorite</Button>
+                        <Button color="gradient" ghost={!isInFavorite} onPress={onToggleFavorite}>Favorite</Button>
                     </Card>
                 </Grid>
             </Grid.Container>
@@ -88,11 +101,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     // Leemos el id de la url de getStaticPaths
     const { id } = params as { id: string };
 
-    const { data } = await pokeAPI.get<Pokemon>(`/pokemon/${id}`);
-
     return {
         props: {
-            pokemon: data
+            pokemon: await getPokemonInfo(id)
         }
     }
 }

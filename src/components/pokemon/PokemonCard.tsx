@@ -8,8 +8,8 @@ interface Props {
 }
 const PokemonCard = ({ pokemons }: Props) => {
     const router = useRouter();
-    const onPokemonClick = (id: number) => {
-        router.push(`/pokemon/${id}`)
+    const onPokemonClick = (name: string) => {
+        router.push(`/name/${name}`)
     }
     return (
         <>
@@ -17,14 +17,14 @@ const PokemonCard = ({ pokemons }: Props) => {
                 {
                     pokemons.map(pokemon => (
                         <Grid xs={6} sm={3} md={2} xl={1} key={pokemon.name}>
-                            <Card isHoverable>
+                            <Card isHoverable isPressable>
                                 <Card.Body css={{ p: 5 }}>
                                     <Card.Image
                                         src={pokemon.img}
                                         alt={pokemon.name}
                                         width='100%'
                                         height={150}
-                                        onClick={() => onPokemonClick(pokemon.id)}
+                                        onClick={() => onPokemonClick(pokemon.name)}
                                     />
                                 </Card.Body>
                                 <Card.Footer>
