@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Layout from '@/components/layouts/Layout'
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { pokeAPI } from '@/api';
 import { Pokemon } from '@/interfaces/pokemonFull';
 import { Grid, Card, Text, Button, Container, Image } from '@nextui-org/react';
-import { useRouter } from 'next/router';
 import { localFavorites } from '@/utilities';
-import ReactCanvasConfetti from 'react-canvas-confetti';
 import confetti from 'canvas-confetti';
 import getPokemonInfo from '@/utilities/getPokemonInfo';
 
@@ -37,12 +34,12 @@ const pokemonPage = ({ pokemon }: Props) => {
         <Layout title={pokemon.name}>
             <Grid.Container css={{ marginTop: "5px" }} gap={2}>
                 <Grid xs={12} md={6}>
-                    <Card isHoverable css={{ padding: "20px" }}>
+                    <Card isHoverable css={{ padding: "100px" }}>
                         <Card.Body>
                             <Card.Image
                                 src={pokemon.sprites.other?.dream_world.front_default || "no image"}
                                 alt={pokemon.name}
-                                css={{ width: "100%", height: "auto" }}
+                                css={{ width: "100%", height: "auto", objectFit: "contain" }}
                             />
                         </Card.Body>
                     </Card>
@@ -92,7 +89,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
                 id
             }
         })),
-        fallback: false
+        // fallback: false
+        fallback: "blocking"
     }
 }
 
@@ -101,10 +99,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     // Leemos el id de la url de getStaticPaths
     const { id } = params as { id: string };
 
+    const pokemon = await getPokemonInfo(id)
+
+    if (!pokemon) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+
     return {
         props: {
-            pokemon: await getPokemonInfo(id)
-        }
+            pokemon
+        },
+        revalidate: 86400
     }
 }
 

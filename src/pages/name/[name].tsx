@@ -1,18 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Layout from '@/components/layouts/Layout'
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { pokeAPI } from '@/api';
 import { Pokemon } from '@/interfaces/pokemonFull';
 import { Grid, Card, Text, Button, Container, Image } from '@nextui-org/react';
-import { useRouter } from 'next/router';
 import { localFavorites } from '@/utilities';
-import ReactCanvasConfetti from 'react-canvas-confetti';
 import confetti from 'canvas-confetti';
 import getPokemonInfo from '@/utilities/getPokemonInfo';
 import { PokemonsListResponse } from '@/interfaces/pokemonsInterface';
-
-
 
 interface Props {
     pokemon: Pokemon
@@ -85,7 +81,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
             params: { name: pokemon.name }
         })),
 
-        fallback: false
+        // fallback: false
+        fallback: "blocking"
     }
 }
 
@@ -94,9 +91,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     // Leemos el id de la url de getStaticPaths
     const { name } = params as { name: string };
 
+    const pokemon = await getPokemonInfo(name);
+    if (!pokemon) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+
     return {
         props: {
-            pokemon: await getPokemonInfo(name)
+            pokemon
         }
     }
 }
